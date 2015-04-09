@@ -1,5 +1,5 @@
 {
-  "name": "proxyquireify",
+  "name": "proxyquireify-es3",
   "version": "1.2.2",
   "description": "Proxies browserify's require in order to allow overriding dependencies during testing.",
   "main": "index.js",
@@ -8,9 +8,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/thlorenz/proxyquireify.git"
+    "url": "git://github.com/roberttod/proxyquireify-es3.git"
   },
-  "homepage": "https://github.com/thlorenz/proxyquireify",
+  "homepage": "https://github.com/roberttod/proxyquireify-es3",
   "dependencies": {
     "amp-each": "^1.0.1",
     "amp-keys": "^1.0.1",

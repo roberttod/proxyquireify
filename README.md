@@ -1,42 +1,10 @@
-# proxyquireify [![build status](https://secure.travis-ci.org/thlorenz/proxyquireify.svg?branch=master)](http://travis-ci.org/thlorenz/proxyquireify)
+# proxyquireify-es3
 
-browserify `>= v2` version of [proxyquire](https://github.com/thlorenz/proxyquire). 
-
-Proxies browserify's require in order to make overriding dependencies during testing easy while staying **totally unobstrusive**. To run your tests in both Node and the browser, use [proxyquire-universal](https://github.com/bendrucker/proxyquire-universal).
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
-
-- [Features](#features)
-- [Installation](#installation)
-- [Example](#example)
-- [API](#api)
-  - [proxyquire.plugin()](#proxyquireplugin)
-  - [proxyquire.browserify()](#proxyquirebrowserify)
-    - [Deprecation Warning](#deprecation-warning)
-  - [proxyquire(request: String, stubs: Object)](#proxyquirerequest-string-stubs-object)
-    - [Important Magic](#important-magic)
-  - [noCallThru](#nocallthru)
-- [More Examples](#more-examples)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-
-## Features
-
-- **no changes to your code** are necessary
-- non overriden methods of a module behave like the original
-- mocking framework agnostic, if it can stub a function then it works with **proxyquireify**
-- "use strict" compliant
-- [automatic injection](https://github.com/thlorenz/proxyquireify#important-magic) of `require` calls to ensure the
-  module you are testing gets bundled 
+This is a fork of [proxyquireify](https://github.com/thlorenz/proxyquireify) that supports ECMAScript 3 so that it works in older browsers such as IE8.
 
 ## Installation
 
-    npm install proxyquireify
-
-To use with browserify `< 5.1` please `npm install proxyquireify@0.5` instead.
+    npm install proxyquireify-es3
 
 ## Example 
 
@@ -53,7 +21,7 @@ module.exports = function () {
 **foo.test.js**:
 
 ```js
-var proxyquire = require('proxyquireify')(require);
+var proxyquire = require('proxyquireify-es3')(require);
 
 var stubs = { 
   './bar': { 
@@ -71,7 +39,7 @@ console.log(foo());
 
 ```js
 var browserify = require('browserify');
-var proxyquire = require('proxyquireify');
+var proxyquire = require('proxyquireify-es3');
 
 browserify()
   .plugin(proxyquire.plugin)
@@ -88,11 +56,11 @@ load it in the browser and see:
 
 ### proxyquire.plugin()
 
-**proxyquireify** functions as a browserify plugin and needs to be registered with browserify like so:
+**proxyquireify-es3** functions as a browserify plugin and needs to be registered with browserify like so:
 
 ```js
 var browserify = require('browserify');
-var proxyquire = require('proxyquireify');
+var proxyquire = require('proxyquireify-es3');
 
 browserify()
   .plugin(proxyquire.plugin)
@@ -101,19 +69,19 @@ browserify()
   .pipe(fs.createWriteStream(__dirname + '/bundle.js'));
 ```
 
-Alternatively you can register **proxyquireify** as a plugin from the command line like so:
+Alternatively you can register **proxyquireify-es3** as a plugin from the command line like so:
 
 ```sh
-browserify -p proxyquireify/plugin test.js > bundle.js
+browserify -p proxyquireify-es3/plugin test.js > bundle.js
 ```
 
 ### proxyquire.browserify()
 
 #### Deprecation Warning
 
-This API to setup **proxyquireify** was used prior to [browserify plugin](https://github.com/substack/node-browserify#bpluginplugin-opts) support.
+This API to setup **proxyquireify-es3** was used prior to [browserify plugin](https://github.com/substack/node-browserify#bpluginplugin-opts) support.
 
-It has not been removed yet to make upgrading **proxyquireify** easier for now, but it **will be deprecated in future
+It has not been removed yet to make upgrading **proxyquireify-es3** easier for now, but it **will be deprecated in future
 versions**. Please consider using the plugin API (above) instead.
 
 ****
@@ -139,7 +107,7 @@ proxyquire.browserify()
   - values themselves are key/value pairs of functions/properties and the appropriate override
 
 ```js
-var proxyquire =  require('proxyquireify')(require);
+var proxyquire =  require('proxyquireify-es3')(require);
 var barStub    =  { wunder: function () { 'really wonderful'; } };
 
 var foo = proxyquire('./foo', { './bar': barStub })
@@ -147,13 +115,13 @@ var foo = proxyquire('./foo', { './bar': barStub })
 
 #### Important Magic 
 
-In order for browserify to include the module you are testing in the bundle, **proxyquireify** will inject a
+In order for browserify to include the module you are testing in the bundle, **proxyquireify-es3** will inject a
 `require()` call for every module you are proxyquireing. So in the above example `require('./foo')` will be injected at
 the top of your test file.
 
 ### noCallThru
 
-By default **proxyquireify** calls the function defined on the *original* dependency whenever it is not found on the stub.
+By default **proxyquireify-es3** calls the function defined on the *original* dependency whenever it is not found on the stub.
 
 If you prefer a more strict behavior you can prevent *callThru* on a per module or per stub basis.
 
@@ -192,4 +160,4 @@ var foo = proxyquire('./foo', {
 
 ## More Examples
 
-- [foobar](https://github.com/thlorenz/proxyquireify/tree/master/examples/foobar)
+- [foobar](https://github.com/roberttod/proxyquireify-es3/tree/master/examples/foobar)
